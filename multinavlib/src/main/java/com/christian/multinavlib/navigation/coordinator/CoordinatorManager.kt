@@ -86,7 +86,7 @@ class CoordinatorManager(private val deepLinkHandler: DeepLinkHandler) {
         }
     }
 
-    data class NavigationData(
+    class NavigationData(
         val params: HashMap<String, Any>? = null
     )
 
