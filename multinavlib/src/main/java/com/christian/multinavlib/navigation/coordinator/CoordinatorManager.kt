@@ -87,7 +87,7 @@ class CoordinatorManager(private val deepLinkHandler: DeepLinkHandler) {
     }
 
     open class NavigationData(
-        val params: HashMap<String, Any>? = null
+        open val params: HashMap<String, Any>? = null
     )
 
     interface State
