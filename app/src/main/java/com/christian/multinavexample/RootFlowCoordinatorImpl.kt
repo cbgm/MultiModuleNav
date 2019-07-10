@@ -8,7 +8,7 @@ import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
 
 
-object RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
+class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
 
    enum class States: CoordinatorManager.State {
       SPLASH,

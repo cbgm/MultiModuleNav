@@ -1,7 +1,7 @@
 package com.christian.multinavexample.feature.two.nav
 
 import androidx.fragment.app.Fragment
-import com.christian.multinavexample.ExampleDeeplinkIdentifier
+import com.christian.multinavexample.ExampleDeepLinkIdentifier
 import com.christian.multinavexample.R
 import com.christian.multinavexample.feature.two.DetailFragment
 import com.christian.multinavexample.feature.two.MenuFragment
@@ -11,7 +11,7 @@ import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
 
-object FlowCoordinator : BaseCoordinatorImpl() {
+class FlowCoordinator : BaseCoordinatorImpl() {
     override var replaceableFragmentId = R.id.fragment_container
 
     enum class States : CoordinatorManager.State {
@@ -67,7 +67,7 @@ object FlowCoordinator : BaseCoordinatorImpl() {
 
     override fun navigateDeepLink(deepLink: DeepLink) {
         when (deepLink.action) {
-            ExampleDeeplinkIdentifier.DETAIL -> showDetail(deepLink.parameter!!)
+            ExampleDeepLinkIdentifier.DETAIL -> showDetail(deepLink.parameter!!)
         }
         isDeepLinkActive = true
     }

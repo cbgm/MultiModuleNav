@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.christian.multinavexample.ExampleCoordinatorManager
+import com.christian.multinavexample.MainCoordinatorImpl
 import com.christian.multinavexample.R
+import com.christian.multinavlib.ui.FeatureFragment
 
 
-class FeatureFragTwo : Fragment() {
-    private val coordinatorManager = ExampleCoordinatorManager
+class FeatureFragTwo : FeatureFragment(MainCoordinatorImpl.States.FEATURE_TWO) {
 
     companion object {
         fun newInstance() = FeatureFragTwo()
@@ -22,10 +21,5 @@ class FeatureFragTwo : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_feature_frag_two, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        coordinatorManager.switchFeatureCoordinator(ExampleCoordinatorManager.States.FEATURE_TWO, this)
     }
 }

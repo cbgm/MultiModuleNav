@@ -5,7 +5,7 @@ import java.util.LinkedList
 import java.util.Queue
 
 
-object DeepLinkHandler {
+class DeepLinkHandler {
 
    private lateinit var path: String
    private lateinit var host: String

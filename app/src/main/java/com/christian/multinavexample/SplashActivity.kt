@@ -3,9 +3,11 @@ package com.christian.multinavexample
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
+import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
-    private val coordinatorManager = ExampleCoordinatorManager
+    private val coordinatorManager: CoordinatorManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,13 +22,12 @@ class SplashActivity : AppCompatActivity() {
             data,
             Pair(
                 "overview2",
-                ExampleDeeplinkIdentifier.OVERVIEW2
+                ExampleDeepLinkIdentifier.OVERVIEW2
             ),
             Pair(
                 "detail",
-                ExampleDeeplinkIdentifier.DETAIL
+                ExampleDeepLinkIdentifier.DETAIL
             )
         )
     }
-
 }

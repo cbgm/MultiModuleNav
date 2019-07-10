@@ -7,7 +7,7 @@ import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
 
-object FlowCoordinator : BaseCoordinatorImpl() {
+class FlowCoordinator : BaseCoordinatorImpl() {
     override var replaceableFragmentId = R.id.fragment_container
 
     enum class States : CoordinatorManager.State {

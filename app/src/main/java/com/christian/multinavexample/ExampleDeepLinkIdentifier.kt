@@ -2,7 +2,7 @@ package com.christian.multinavexample
 
 import com.christian.multinavlib.navigation.deeplink.DeepLinkIdentifier
 
-enum class ExampleDeeplinkIdentifier: DeepLinkIdentifier {
+enum class ExampleDeepLinkIdentifier: DeepLinkIdentifier {
     DETAIL {
         override fun hasParameter() = true
     },

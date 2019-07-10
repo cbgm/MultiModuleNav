@@ -13,7 +13,7 @@ import org.koin.core.inject
 
 abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
 
-   protected val deepLinkHandler: DeepLinkHandler by inject()
+   private val deepLinkHandler: DeepLinkHandler by inject()
    protected var isDeepLinkActive: Boolean = false
 
    protected var activity: FragmentActivity? = null
