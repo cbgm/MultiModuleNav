@@ -6,8 +6,9 @@ import com.christian.multinavexample.feature.one.OverviewFragment
 import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
+import com.christian.multinavlib.navigation.extension.replaceFragment
 
-class FlowCoordinator : BaseCoordinatorImpl() {
+class OneFlowCoordinator : BaseCoordinatorImpl() {
     override var replaceableFragmentId = R.id.fragment_container
 
     enum class States : CoordinatorManager.State {
@@ -16,10 +17,11 @@ class FlowCoordinator : BaseCoordinatorImpl() {
 
     private fun showOverview() {
         this.currentChildFragment = OverviewFragment.newInstance()
-        val fragmentTransaction = currentFeatureFragment?.childFragmentManager?.beginTransaction()
-        fragmentTransaction?.addToBackStack("ONE")
-        fragmentTransaction?.replace(replaceableFragmentId, this.currentChildFragment, "")
-        fragmentTransaction?.commit()
+        this.currentFeatureFragment?.replaceFragment(
+            this.currentChildFragment,
+            replaceableFragmentId,
+            "OverviewFragment"
+        )
     }
 
     override fun onDeepLinkBack() {

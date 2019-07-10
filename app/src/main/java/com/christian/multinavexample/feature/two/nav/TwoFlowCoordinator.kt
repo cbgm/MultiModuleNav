@@ -10,8 +10,9 @@ import com.christian.multinavexample.feature.two.OverviewTwoFragment
 import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
+import com.christian.multinavlib.navigation.extension.replaceFragment
 
-class FlowCoordinator : BaseCoordinatorImpl() {
+class TwoFlowCoordinator : BaseCoordinatorImpl() {
     override var replaceableFragmentId = R.id.fragment_container
 
     enum class States : CoordinatorManager.State {
@@ -23,34 +24,38 @@ class FlowCoordinator : BaseCoordinatorImpl() {
 
     private fun showMenu() {
         this.currentChildFragment = MenuFragment.newInstance()
-        val fragmentTransaction = currentFeatureFragment?.childFragmentManager?.beginTransaction()
-        fragmentTransaction?.addToBackStack("MenuFragment")
-        fragmentTransaction?.replace(replaceableFragmentId, this.currentChildFragment, "")
-        fragmentTransaction?.commit()
+        this.currentFeatureFragment?.replaceFragment(
+            this.currentChildFragment,
+            replaceableFragmentId,
+            "MenuFragment"
+        )
     }
 
     private fun showOverview() {
         this.currentChildFragment = OverviewFragment.newInstance()
-        val fragmentTransaction = currentFeatureFragment?.childFragmentManager?.beginTransaction()
-        fragmentTransaction?.addToBackStack("OverviewFragment")
-        fragmentTransaction?.replace(replaceableFragmentId, this.currentChildFragment, "")
-        fragmentTransaction?.commit()
+        this.currentFeatureFragment?.replaceFragment(
+            this.currentChildFragment,
+            replaceableFragmentId,
+            "OverviewFragment"
+        )
     }
 
     private fun showOverview2() {
         this.currentChildFragment = OverviewTwoFragment.newInstance()
-        val fragmentTransaction = currentFeatureFragment?.childFragmentManager?.beginTransaction()
-        fragmentTransaction?.addToBackStack("Overview2")
-        fragmentTransaction?.replace(replaceableFragmentId, this.currentChildFragment, "")
-        fragmentTransaction?.commit()
+        this.currentFeatureFragment?.replaceFragment(
+            this.currentChildFragment,
+            replaceableFragmentId,
+            "OverviewFragment2"
+        )
     }
 
     private fun showDetail(test: String) {
-        this.currentChildFragment = DetailFragment.newInstance()
-        val fragmentTransaction = currentFeatureFragment?.childFragmentManager?.beginTransaction()
-        fragmentTransaction?.addToBackStack("Detail")
-        fragmentTransaction?.replace(replaceableFragmentId, this.currentChildFragment, "")
-        fragmentTransaction?.commit()
+        this.currentChildFragment = DetailFragment.newInstance(test)
+        this.currentFeatureFragment?.replaceFragment(
+            this.currentChildFragment,
+            replaceableFragmentId,
+            "Detail"
+        )
     }
 
     override fun onDeepLinkBack() {
@@ -77,7 +82,11 @@ class FlowCoordinator : BaseCoordinatorImpl() {
             States.MENU -> showMenu()
             States.OVERVIEW -> showOverview()
             States.OVERVIEW2 -> showOverview2()
-            States.DETAIL -> showDetail("")
+            States.DETAIL -> navigationData?.let {
+                showDetail(
+                    it.params!!["test"].toString()
+                )
+            }
         }
         return null
     }

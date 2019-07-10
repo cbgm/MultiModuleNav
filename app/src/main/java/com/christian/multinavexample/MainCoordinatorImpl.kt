@@ -6,6 +6,7 @@ import com.christian.multinavexample.feature.two.FeatureFragTwo
 import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
+import com.christian.multinavlib.navigation.extension.replaceFragmentNoBackStack
 
 
 class MainCoordinatorImpl : BaseCoordinatorImpl() {
@@ -26,19 +27,13 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
 
     private fun showFeatureOne(): Fragment {
         val frag = FeatureFragOne.newInstance()
-        val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.addToBackStack("ONE")
-        fragmentTransaction?.replace(replaceableFragmentId, frag, "ONE")
-        fragmentTransaction?.commit()
+        this.activity?.replaceFragmentNoBackStack(frag, replaceableFragmentId, "ONE")
         return frag
     }
 
     private fun showFeatureTwo(): Fragment {
         val frag = FeatureFragTwo.newInstance()
-        val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.addToBackStack("TWO")
-        fragmentTransaction?.replace(replaceableFragmentId, frag, "TWO")
-        fragmentTransaction?.commit()
+        this.activity?.replaceFragmentNoBackStack(frag, replaceableFragmentId, "TWO")
         return frag
     }
 
@@ -52,8 +47,8 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
 
     override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?): Fragment? {
         return when (routeKey) {
-            MainCoordinatorImpl.States.FEATURE_ONE -> showFeatureOne()
-            MainCoordinatorImpl.States.FEATURE_TWO -> showFeatureTwo()
+            States.FEATURE_ONE -> showFeatureOne()
+            States.FEATURE_TWO -> showFeatureTwo()
             else -> null
         }
     }

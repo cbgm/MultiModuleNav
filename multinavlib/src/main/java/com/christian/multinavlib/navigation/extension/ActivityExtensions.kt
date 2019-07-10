@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.christian.multinavlib.navigation.extension
 
 import androidx.fragment.app.Fragment

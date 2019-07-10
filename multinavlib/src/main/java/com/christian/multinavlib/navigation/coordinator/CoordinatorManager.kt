@@ -5,11 +5,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.christian.multinavlib.navigation.deeplink.DeepLinkHandler
 import com.christian.multinavlib.navigation.deeplink.DeepLinkIdentifier
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import java.util.*
 
 
+@Suppress("unused")
 class CoordinatorManager(private val deepLinkHandler: DeepLinkHandler) {
     private val featureCoordinators = HashMap<State, BaseCoordinator>()
     private lateinit var currentFeatureCoordinator: BaseCoordinator

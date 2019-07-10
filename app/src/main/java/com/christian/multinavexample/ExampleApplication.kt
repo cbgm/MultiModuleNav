@@ -3,8 +3,9 @@ package com.christian.multinavexample
 import android.app.Application
 import com.christian.multinavexample.di.appModule
 import com.christian.multinavexample.feature.one.di.featureOneModule
+import com.christian.multinavexample.feature.one.nav.OneFlowCoordinator
 import com.christian.multinavexample.feature.two.di.featureTwoModule
-import com.christian.multinavexample.feature.two.nav.FlowCoordinator
+import com.christian.multinavexample.feature.two.nav.TwoFlowCoordinator
 import com.christian.multinavlib.di.navModule
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import org.koin.android.ext.android.inject
@@ -16,9 +17,9 @@ import org.koin.core.context.startKoin
 class ExampleApplication : Application() {
     private val coordinatorManager: CoordinatorManager by inject()
     private val mainCoordinatorImpl: MainCoordinatorImpl by inject()
-    private val twoCoordinator: FlowCoordinator by inject()
+    private val twoFlowCoordinator: TwoFlowCoordinator by inject()
     private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()
-    private val oneCoordinator: com.christian.multinavexample.feature.one.nav.FlowCoordinator by inject()
+    private val oneFlowCoordinator: OneFlowCoordinator by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -35,11 +36,11 @@ class ExampleApplication : Application() {
             registerMainCoordinator(mainCoordinatorImpl)
             registerFeatureCoordinator(
                 MainCoordinatorImpl.States.FEATURE_ONE,
-                oneCoordinator
+                oneFlowCoordinator
             )
             registerFeatureCoordinator(
                 MainCoordinatorImpl.States.FEATURE_TWO,
-                twoCoordinator
+                twoFlowCoordinator
             )
         }
     }
