@@ -24,8 +24,6 @@ interface BaseCoordinator {
 
    fun navigateLink()
 
-   fun navigateDeepLink()
-
    fun navigateDeepLink(deepLink: DeepLink)
 
    fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?): Fragment?

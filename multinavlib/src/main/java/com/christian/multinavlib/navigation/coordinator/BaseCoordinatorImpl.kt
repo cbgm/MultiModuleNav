@@ -73,6 +73,9 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
       this.activity?.backStackClean()
    }
 
+   /**
+    * Method is called when back button is triggered and deep link is active.
+    */
    abstract override fun onDeepLinkBack()
 
    /**
@@ -87,7 +90,7 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
     */
    abstract override fun navigateDeepLink(deepLink: DeepLink)
 
-   override fun navigateDeepLink(){
+   private fun navigateDeepLink(){
       deepLinkHandler.getDeepLink()
          ?.let {
             navigateDeepLink(it)

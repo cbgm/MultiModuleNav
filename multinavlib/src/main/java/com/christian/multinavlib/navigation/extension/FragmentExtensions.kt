@@ -48,5 +48,5 @@ private fun FragmentManager.inBackStack(): Boolean {
 inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
     val fragmentTransaction = beginTransaction()
     fragmentTransaction.func()
-    fragmentTransaction.commit()
+    fragmentTransaction.commitAllowingStateLoss()
 }

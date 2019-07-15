@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 val navModule = module {
     single { DeepLinkHandler() }
-    single { CoordinatorManager(get()) }
+    single { CoordinatorManager() }
 }
