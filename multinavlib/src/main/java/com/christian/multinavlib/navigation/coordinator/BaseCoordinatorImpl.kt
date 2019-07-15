@@ -21,6 +21,10 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
    protected var currentFeatureFragment: Fragment? = null
    open var replaceableFragmentId: Int = 0
 
+   /**
+    * Method to start navigation from activity (initial navigation optional).
+    * @param fragmentActivity The current app part activity
+    */
    override fun start(fragmentActivity: FragmentActivity, withInitialNavigation: Boolean) {
       this.activity = fragmentActivity
 
@@ -29,6 +33,10 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
       }
    }
 
+   /**
+    * Method to start navigation from fragment (initial navigation optional).
+    * @param fragment The current feature fragment
+    */
    override fun start(fragment: Fragment, withInitialNavigation: Boolean) {
       this.currentFeatureFragment = fragment
 
@@ -37,6 +45,10 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
       }
    }
 
+   /**
+    * Method to start navigation from activity (data for deep linking optional) usually only called by the splash app part.
+    * @param fragmentActivity The current app part activity
+    */
    override fun start(fragmentActivity: FragmentActivity, uri: Uri?) {
       this.activity = fragmentActivity
       initialNavigation()
@@ -63,8 +75,16 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
 
    abstract override fun onDeepLinkBack()
 
+   /**
+    * Method is called when initial navigation is triggered by start(..).
+    * Should call the navigation to the first shown page inside a feature
+    */
    abstract override fun navigateLink()
 
+   /**
+    * Method is called when initial navigation is triggered by start(..) and deep link was recognized
+    * @param deepLink The found deep link
+    */
    abstract override fun navigateDeepLink(deepLink: DeepLink)
 
    override fun navigateDeepLink(){
@@ -74,6 +94,11 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
          }
    }
 
+   /**
+    * Method is called when navigation is triggered from CoordinatorManager.
+    * @param routeKey The key for the route
+    * @param navigationData The data needed to start up the route
+    */
    abstract override fun route(
          routeKey: CoordinatorManager.State,
          navigationData: CoordinatorManager.NavigationData?
