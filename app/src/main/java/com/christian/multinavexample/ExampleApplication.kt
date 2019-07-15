@@ -17,6 +17,7 @@ import org.koin.core.context.startKoin
 
 @Suppress("unused")
 class ExampleApplication : Application() {
+    //Step 1 define and inject coordinators
     private val coordinatorManager: CoordinatorManager by inject()
     private val mainCoordinatorImpl: MainCoordinatorImpl by inject()
     private val twoFlowCoordinator: TwoFlowCoordinator by inject()
@@ -29,6 +30,7 @@ class ExampleApplication : Application() {
             androidContext(this@ExampleApplication)
             modules(listOf(appModule, featureOneModule, featureTwoModule, navModule))
         }
+        //Step 2 register coordinators
         initCoordinator()
     }
 
