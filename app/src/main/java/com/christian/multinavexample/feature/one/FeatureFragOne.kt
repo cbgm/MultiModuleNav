@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.christian.multinavexample.MainCoordinatorImpl
+import com.christian.multinavexample.core.nav.MainCoordinatorImpl
 import com.christian.multinavexample.R
 import com.christian.multinavlib.ui.FeatureFragment
 

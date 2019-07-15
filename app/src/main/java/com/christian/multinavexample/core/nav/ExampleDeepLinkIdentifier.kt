@@ -1,4 +1,4 @@
-package com.christian.multinavexample
+package com.christian.multinavexample.core.nav
 
 import com.christian.multinavlib.navigation.deeplink.DeepLinkIdentifier
 

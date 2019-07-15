@@ -1,6 +1,7 @@
-package com.christian.multinavexample
+package com.christian.multinavexample.core.nav
 
 import androidx.fragment.app.Fragment
+import com.christian.multinavexample.R
 import com.christian.multinavexample.feature.one.FeatureFragOne
 import com.christian.multinavexample.feature.two.FeatureFragTwo
 import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl

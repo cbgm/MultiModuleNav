@@ -1,7 +1,7 @@
 package com.christian.multinavexample.feature.two.nav
 
 import androidx.fragment.app.Fragment
-import com.christian.multinavexample.ExampleDeepLinkIdentifier
+import com.christian.multinavexample.core.nav.ExampleDeepLinkIdentifier
 import com.christian.multinavexample.R
 import com.christian.multinavexample.feature.two.DetailFragment
 import com.christian.multinavexample.feature.two.MenuFragment

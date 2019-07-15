@@ -21,7 +21,9 @@ class CoordinatorManager(private val deepLinkHandler: DeepLinkHandler) {
         vararg deepLinkInformation: Pair<String, DeepLinkIdentifier>
     ) {
         data?.let {
-            deepLinkInformation.forEach { this.deepLinkHandler.registerDeepLink(it.first, it.second) }
+            deepLinkInformation.forEach {
+                this.deepLinkHandler.registerDeepLink(it.first, it.second)
+            }
             this.deepLinkHandler.setUri(data)
         }
         this.applicationPartCoordinator.start(fragmentActivity)

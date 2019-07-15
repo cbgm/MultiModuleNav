@@ -1,7 +1,9 @@
 package com.christian.multinavexample
 
 import android.app.Application
-import com.christian.multinavexample.di.appModule
+import com.christian.multinavexample.core.di.appModule
+import com.christian.multinavexample.core.nav.MainCoordinatorImpl
+import com.christian.multinavexample.core.nav.RootFlowCoordinatorImpl
 import com.christian.multinavexample.feature.one.di.featureOneModule
 import com.christian.multinavexample.feature.one.nav.OneFlowCoordinator
 import com.christian.multinavexample.feature.two.di.featureTwoModule

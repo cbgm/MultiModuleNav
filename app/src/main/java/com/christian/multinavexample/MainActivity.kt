@@ -3,6 +3,7 @@ package com.christian.multinavexample
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
+import com.christian.multinavexample.core.nav.MainCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject

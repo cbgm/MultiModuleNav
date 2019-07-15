@@ -3,6 +3,7 @@ package com.christian.multinavexample
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.christian.multinavexample.core.nav.ExampleDeepLinkIdentifier
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import org.koin.android.ext.android.inject
 
