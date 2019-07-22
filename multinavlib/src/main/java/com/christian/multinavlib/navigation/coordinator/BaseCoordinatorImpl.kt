@@ -90,7 +90,7 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
     */
    abstract override fun navigateDeepLink(deepLink: DeepLink)
 
-   private fun navigateDeepLink(){
+   open fun navigateDeepLink(){
       deepLinkHandler.getDeepLink()
          ?.let {
             navigateDeepLink(it)
@@ -103,7 +103,7 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
     * @param navigationData The data needed to start up the route
     */
    abstract override fun route(
-         routeKey: CoordinatorManager.State,
-         navigationData: CoordinatorManager.NavigationData?
+      routeKey: CoordinatorManager.State,
+      navigationData: CoordinatorManager.NavigationData?
    ): Fragment?
 }

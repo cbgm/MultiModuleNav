@@ -91,6 +91,10 @@ class CoordinatorManager: KoinComponent {
         this.currentFeatureCoordinator.initialNavigation()
     }
 
+    fun initialNavigateAppPart() {
+        this.mainCoordinator.initialNavigation()
+    }
+
     /**
      * Method to trigger back navigation.
      */
@@ -117,10 +121,10 @@ class CoordinatorManager: KoinComponent {
 
 
     /**
-     * Method to start app part navigation
-     * @param fragmentActivity The app part (splash, main,...)
+     * Method to start main app part navigation
+     * @param fragmentActivity The main part
      * @param uri The possible deep link data
-     * @param withInitialNavigation When initial navigation should be triggered (splash)
+     * @param withInitialNavigation When initial navigation should be triggered
      */
     fun startNavigation(
         fragmentActivity: FragmentActivity,
@@ -132,8 +136,8 @@ class CoordinatorManager: KoinComponent {
                 fragmentActivity,
                 withInitialNavigation
             )
-            uri == null -> this.mainCoordinator.start(fragmentActivity, uri)
-            else -> this.mainCoordinator.start(fragmentActivity)
+            uri != null -> this.mainCoordinator.start(fragmentActivity, uri)
+            else -> this.mainCoordinator.start(fragmentActivity, false)
         }
     }
 

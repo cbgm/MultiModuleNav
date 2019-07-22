@@ -21,7 +21,7 @@ class MainActivity : CoordinatedActivity() {
         button2.setOnClickListener {
             coordinatorManager.navigateToFeature(MainCoordinatorImpl.States.FEATURE_TWO)
         }
-        coordinatorManager.startNavigation(this)
+        coordinatorManager.startNavigation(this, null, true)
     }
 
     override fun onBackPressed() {
