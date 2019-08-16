@@ -1,1 +1,1 @@
-include ':app', ':multinavlib'
+include ':app', ':multinavlib', ':generator', ':annotation'

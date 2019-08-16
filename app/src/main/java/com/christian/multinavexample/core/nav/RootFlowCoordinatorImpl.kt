@@ -3,13 +3,14 @@ package com.christian.multinavexample.core.nav
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.christian.annotation.RootCoordinator
 import com.christian.multinavexample.MainActivity
 import com.christian.multinavexample.SplashActivity
 import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
 
-
+@RootCoordinator
 class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
 
    enum class States: CoordinatorManager.State {

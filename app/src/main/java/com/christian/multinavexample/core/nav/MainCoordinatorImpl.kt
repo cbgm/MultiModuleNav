@@ -1,6 +1,7 @@
 package com.christian.multinavexample.core.nav
 
 import androidx.fragment.app.Fragment
+import com.christian.annotation.MainCoordinator
 import com.christian.multinavexample.R
 import com.christian.multinavexample.feature.one.FeatureFragOne
 import com.christian.multinavexample.feature.two.FeatureFragTwo
@@ -9,14 +10,14 @@ import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.christian.multinavlib.navigation.extension.replaceFragmentNoBackStack
 
-
+@MainCoordinator
 class MainCoordinatorImpl : BaseCoordinatorImpl() {
 
     override var replaceableFragmentId: Int = R.id.feature_container
 
-    enum class States: CoordinatorManager.State {
-        FEATURE_ONE,
-        FEATURE_TWO
+    enum class States(val stateAsInt: Int): CoordinatorManager.State {
+        FEATURE_ONE(1),
+        FEATURE_TWO(1)
     }
 
     override fun navigateDeepLink(deepLink: DeepLink) {

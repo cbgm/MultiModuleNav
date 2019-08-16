@@ -3,11 +3,13 @@ package com.christian.multinavexample.feature.one.nav
 import androidx.fragment.app.Fragment
 import com.christian.multinavexample.R
 import com.christian.multinavexample.feature.one.OverviewFragment
+import com.christian.annotation.FeatureCoordinator
 import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.christian.multinavlib.navigation.extension.replaceFragment
 
+@FeatureCoordinator(state = 0)
 class OneFlowCoordinator : BaseCoordinatorImpl() {
     override var replaceableFragmentId = R.id.fragment_container
 

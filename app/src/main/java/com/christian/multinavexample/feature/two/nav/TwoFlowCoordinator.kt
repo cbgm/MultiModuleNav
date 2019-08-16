@@ -7,11 +7,13 @@ import com.christian.multinavexample.feature.two.DetailFragment
 import com.christian.multinavexample.feature.two.MenuFragment
 import com.christian.multinavexample.feature.two.OverviewFragment
 import com.christian.multinavexample.feature.two.OverviewTwoFragment
+import com.christian.annotation.FeatureCoordinator
 import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.christian.multinavlib.navigation.extension.replaceFragment
 
+@FeatureCoordinator(state = 1)
 class TwoFlowCoordinator : BaseCoordinatorImpl() {
     override var replaceableFragmentId = R.id.fragment_container
 

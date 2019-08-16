@@ -9,7 +9,6 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.util.*
 
-
 @Suppress("unused")
 class CoordinatorManager: KoinComponent {
     private val deepLinkHandler: DeepLinkHandler by inject()
