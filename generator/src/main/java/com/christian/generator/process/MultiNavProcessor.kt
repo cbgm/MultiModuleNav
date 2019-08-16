@@ -16,7 +16,7 @@ import javax.lang.model.element.TypeElement
 @Suppress("unused")
 @AutoService(Processor::class)
 class MultiNavProcessor : KotlinAbstractProcessor() {
-    
+
     companion object {
         const val KOTLIN_DIRECTORY_NAME = "kapt.kotlin.generated"
     }
