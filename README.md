@@ -1,54 +1,29 @@
 A lib for easy navigation in a multi module app.
 
-## Step 1: define and inject coordinators in application
+## Step 1: Define possible deeplinks
 
-    private val coordinatorManager: CoordinatorManager by inject()
-    private val mainCoordinatorImpl: MainCoordinatorImpl by inject()
-    private val twoFlowCoordinator: TwoFlowCoordinator by inject()
-    private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()
-    private val oneFlowCoordinator: OneFlowCoordinator by inject()
-   
-## Step 2: register coordinators
-
-    coordinatorManager.run {
-        //coordinator for application parts "activities" like splash, (auth), main
-        registerApplicationPartCoordinator(rootFlowCoordinatorImpl)
-        //coordinator for the main application part
-        registerMainCoordinator(mainCoordinatorImpl)
-        //all features in main (also it is possible to auth as feature in here)
-        registerFeatureCoordinator(
-            MainCoordinatorImpl.States.FEATURE_ONE,
-            oneFlowCoordinator
-        )
-        registerFeatureCoordinator(
-            MainCoordinatorImpl.States.FEATURE_TWO,
-            twoFlowCoordinator
-        )
+    enum class ExampleDeepLinkIdentifier: DeepLinkIdentifier {
+        DETAIL {
+            override fun hasParameter() = true
+        },
+        OVERVIEW2 {
+        override fun hasParameter() = false
+        }
     }
-   
-## Step 3: start app routing and define possible deep links
-  
-    val data: Uri? = intent?.data
-    coordinatorManager.startApplicationRouting(
-        this,
-        data,
-        //Deeplinks
-        Pair(
-          "overview2",
-          ExampleDeepLinkIdentifier.OVERVIEW2
-        ), //adb shell am start -W -a android.intent.action.VIEW -d "http://mnl.de://overview2" com.christian.multinavexample
-        Pair(
-          "detail",
-          ExampleDeepLinkIdentifier.DETAIL
-        )//adb shell am start -W -a android.intent.action.VIEW -d "http://mnl.de://overview2/detail/{value}" com.christian.multinavexample
-    )
-    
-## Step 4: set up coordinators and navigate in app
+
+## Step 2: set up coordinators and navigate in app
     
     Please take a look into the delivered example app for further explanation
+    Annotate FeatureCoordinators, MainCoordinator and RootCoordinator by using either
+    
+    @RootCoordinator
+    @MainCoordinator
+    @FeatureCoordinator(state = x)
+    
+    state mirrors the main navigation pages (not more than 5)
     
 ## Example feature coordinator
-    
+    @FeatureCoordinator(state = 0)
     class OneFlowCoordinator : BaseCoordinatorImpl() {
         //has to be overriden to set the actual fragment container
         override var replaceableFragmentId = R.id.fragment_container
@@ -89,3 +64,28 @@ A lib for easy navigation in a multi module app.
             return null
         }
     }
+    
+## Step 3: start app routing and set possible deep links
+
+    val data: Uri? = intent?.data
+    coordinatorManager.startApplicationRouting(
+        this,
+        data,
+        //Deeplinks
+        Pair(
+          "overview2",
+          ExampleDeepLinkIdentifier.OVERVIEW2
+        ), //adb shell am start -W -a android.intent.action.VIEW -d "http://mnl.de://overview2" com.christian.multinavexample
+        Pair(
+          "detail",
+          ExampleDeepLinkIdentifier.DETAIL
+        )//adb shell am start -W -a android.intent.action.VIEW -d "http://mnl.de://overview2/detail/{value}" com.christian.multinavexample
+    )
+    
+    
+## Step 4: Init Lib
+
+   After build of project init in application by calling 
+   
+    MulitNav().init()
+
