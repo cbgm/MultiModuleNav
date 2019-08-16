@@ -13,3 +13,7 @@ annotation class MainCoordinator
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS)
 annotation class RootCoordinator
+
+@Retention(AnnotationRetention.SOURCE)
+@Target(AnnotationTarget.CLASS)
+annotation class BindFeatureStates

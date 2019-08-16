@@ -3,6 +3,7 @@ package com.christian.multinavexample
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
+import com.christian.multinavexample.core.nav.FeatureStates
 import com.christian.multinavexample.core.nav.MainCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.ui.CoordinatedActivity
@@ -16,10 +17,10 @@ class MainActivity : CoordinatedActivity() {
         setContentView(R.layout.activity_main)
 
         button.setOnClickListener {
-            coordinatorManager.navigateToFeature(MainCoordinatorImpl.States.FEATURE_ONE)
+            coordinatorManager.navigateToFeature(FeatureStates.FEATURE_ONE)
         }
         button2.setOnClickListener {
-            coordinatorManager.navigateToFeature(MainCoordinatorImpl.States.FEATURE_TWO)
+            coordinatorManager.navigateToFeature(FeatureStates.FEATURE_TWO)
         }
         coordinatorManager.startNavigation(this, null, true)
     }

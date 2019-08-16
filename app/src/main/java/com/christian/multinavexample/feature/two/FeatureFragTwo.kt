@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.christian.multinavexample.core.nav.MainCoordinatorImpl
 import com.christian.multinavexample.R
+import com.christian.multinavexample.core.nav.FeatureStates
 import com.christian.multinavlib.ui.FeatureFragment
 
 
-class FeatureFragTwo : FeatureFragment(MainCoordinatorImpl.States.FEATURE_TWO) {
+class FeatureFragTwo : FeatureFragment(FeatureStates.FEATURE_TWO) {
 
     companion object {
         fun newInstance() = FeatureFragTwo()

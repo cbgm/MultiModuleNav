@@ -1,5 +1,6 @@
 package com.christian.generator.process
 
+import com.christian.annotation.BindFeatureStates
 import com.christian.annotation.FeatureCoordinator
 import com.christian.annotation.MainCoordinator
 import com.christian.annotation.RootCoordinator
@@ -11,6 +12,7 @@ import java.io.File
 import javax.annotation.processing.Processor
 import javax.annotation.processing.RoundEnvironment
 import javax.lang.model.SourceVersion
+import javax.lang.model.element.Modifier
 import javax.lang.model.element.TypeElement
 
 @Suppress("unused")
@@ -24,25 +26,28 @@ class MultiNavProcessor : KotlinAbstractProcessor() {
     private val featureAnnotation = FeatureCoordinator::class.java
     private val mainAnnotation = MainCoordinator::class.java
     private val rootAnnotation = RootCoordinator::class.java
+    private val statesAnnotation = BindFeatureStates::class.java
     private val classInfo = Pair("com.christian.multinavlib", "MultiNav")
 
     override fun process(annotations: Set<TypeElement>, roundEnv: RoundEnvironment): Boolean {
         val featureCoordinators = findFeatures(roundEnv)
         val mainCoordinator = findMain(roundEnv)
         val rootCoordinator = findRoot(roundEnv)
-        startClassGeneration(featureCoordinators, mainCoordinator, rootCoordinator)
+        val states = findFeatureStates(roundEnv)
+        startClassGeneration(featureCoordinators, mainCoordinator, rootCoordinator, states)
         return false
     }
 
     override fun getSupportedAnnotationTypes(): Set<String> =
-        setOf(featureAnnotation.canonicalName, mainAnnotation.canonicalName, rootAnnotation.canonicalName)
+        setOf(featureAnnotation.canonicalName, mainAnnotation.canonicalName, rootAnnotation.canonicalName, statesAnnotation.canonicalName)
 
     override fun getSupportedSourceVersion(): SourceVersion = SourceVersion.latest()
 
     private fun startClassGeneration(
         featureList: ArrayList<Pair<Pair<String, String>, Int>>,
         mainCoordinator: Pair<String, String>,
-        rootCoordinator: Pair<String, String>
+        rootCoordinator: Pair<String, String>,
+        states: Element
     ) {
         if (featureList.size == 0)
             return
@@ -55,7 +60,7 @@ class MultiNavProcessor : KotlinAbstractProcessor() {
         val generatedClass = TypeSpec.Companion.classBuilder(classInfo.second)
             .addSuperinterface(KoinComponent::class)
             .addFunction(buildInitMethod(mainMember, rootMember, featureMembers))
-            .addFunction(buildLookupMethod(mainMember))
+            .addFunction(buildLookupMethod(mainMember, states))
             .build()
         val generatedFile =
             FileSpec.builder(classInfo.first, classInfo.second).addImports().addType(generatedClass).build()
@@ -91,6 +96,18 @@ class MultiNavProcessor : KotlinAbstractProcessor() {
         return Pair("", "")
     }
 
+    private fun findFeatureStates(roundEnv: RoundEnvironment): Element{
+        val jsonFields = roundEnv.getElementsAnnotatedWith(statesAnnotation)
+        jsonFields.forEach {
+            val pack = elementUtils.getPackageOf(it).toString()
+            val annotatedClassName = it.simpleName.toString()
+            val enclosing = it.enclosingElement.simpleName.toString()
+            val mod = it.modifiers
+            return Element(pack, enclosing, annotatedClassName, mod)
+        }
+        return Element("","","", emptySet())
+    }
+
     private fun findRoot(roundEnv: RoundEnvironment): Pair<String, String> {
         val jsonFields = roundEnv.getElementsAnnotatedWith(rootAnnotation)
         jsonFields.forEach {
@@ -101,13 +118,15 @@ class MultiNavProcessor : KotlinAbstractProcessor() {
         return Pair("", "")
     }
 
-    private fun buildLookupMethod(mainMember: MemberName): FunSpec {
-        val mainClassState = ClassName("$mainMember", "States")
+    private fun buildLookupMethod(mainMember: MemberName, states: Element): FunSpec {
+       // val classState = ClassName(stateMember.packageName, stateMember.simpleName)
+        val pack = if(states.pack.contains(states.enclosing)) states.pack else "${states.pack}.${states.enclosing}"
+        val mainClassState = ClassName(pack, states.name)
         return FunSpec.builder("getState").apply {
             addModifiers(KModifier.PRIVATE)
             addParameter("status", Int::class)
             returns(mainClassState)
-            addStatement("return ${mainMember.simpleName}.States.values().get(status)")
+            addStatement("return ${states.name}.values().get(status)")
         }.build()
     }
 
@@ -132,3 +151,5 @@ class MultiNavProcessor : KotlinAbstractProcessor() {
         }.build()
     }
 }
+
+data class Element(val pack: String, val enclosing: String, val name: String, val modifiers: Set<Modifier>)
